@@ -1,0 +1,15 @@
+# ─── Node / Next.js ────────────────────────────────────────────
+news-analyzer-frontend/node_modules/
+news-analyzer-frontend/.next/
+news-analyzer-frontend/.env.local
+
+# ─── Python / FastAPI ──────────────────────────────────────────
+backend/venv/
+backend/.env
+__pycache__/
+*.pyc
+
+# ─── macOS & editors ──────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold tracking-tight;
+}
+
+.btn-primary {
+  @apply bg-accent text-black font-semibold px-4 py-2 rounded hover:bg-white hover:text-black transition-colors duration-200;
+} 

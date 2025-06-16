@@ -1,0 +1,81 @@
+<div id="newsContainer" class="row mt-4">
+    <!-- Articles will be injected here -->
+  </div>
+</div>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+></script>
+<script>
+  // Function to fetch news articles from the API
+  function getNews() {
+    var keyword = $("#keyword").val();
+    var language = $("#language").val();
+    var url = "/api/news?language=" + language;
+
+    if (keyword) {
+      url += "&keyword=" + keyword;
+    }
+
+    $.getJSON(url, function (data) {
+      var newsContainer = $("#newsContainer");
+      newsContainer.empty();
+
+      if (data.articles && data.articles.length > 0) {
+        data.articles.forEach(function (article) {
+          var articleDiv = $("<div class='col-md-12 mb-4'></div>");
+          var card = $("<div class='card'></div>");
+          var cardBody = $("<div class='card-body'></div>");
+
+          var title = $("<h5 class='card-title'></h5>");
+          title.text(article.title);
+
+          var summary = $("<p class='card-text'></p>");
+          if (article.summary) {
+            summary.text(article.summary);
+          } else {
+            summary.text(article.text);
+          }
+
+          var sourceInfo = $(
+            "<p class='card-text'><small class='text-muted'>Source: " +
+              article.source +
+              " | Published: " +
+              article.published +
+              "</small></p>"
+          );
+
+          cardBody.append(title, summary, sourceInfo);
+          card.append(cardBody);
+          articleDiv.append(card);
+          newsContainer.append(articleDiv);
+        });
+      } else {
+        newsContainer.append("<p>No articles found.</p>");
+      }
+    });
+  }
+
+  $(document).ready(function () {
+    // Initial load of news articles.
+    getNews();
+
+    // Filter articles based on keyword and language when form is submitted
+    $("#filterForm").submit(function (e) {
+      e.preventDefault();
+      getNews();
+    });
+
+    // Download PDF report for the filtered articles
+    $("#downloadPDF").click(function () {
+      var keyword = $("#keyword").val();
+      var url = "/api/pdf";
+      if (keyword) {
+        url += "?keyword=" + keyword;
+      }
+      window.location.href = url;
+    });
+  });
+</script>

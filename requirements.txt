@@ -1,0 +1,12 @@
+feedparser
+requests
+pandas
+nltk
+newspaper3k
+flask
+transformers
+fpdf
+googletrans==4.0.0-rc1
+gTTS
+beautifulsoup4
+lxml_html_clean
